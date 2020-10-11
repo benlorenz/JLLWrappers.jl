@@ -41,5 +41,9 @@ module TestJLL end
         @test isdir(@eval TestJLL OpenLibm_jll.artifact_dir)
         @test isempty(@eval TestJLL OpenLibm_jll.PATH[])
         @test occursin(Sys.BINDIR, @eval TestJLL OpenLibm_jll.LIBPATH[])
+
+        # Package with a LibraryProduct
+        Pkg.develop(PackageSpec(path=joinpath(@__DIR__, "FFMPEG_jll")))
+        @test_nowarn @eval TestJLL using FFMPEG_jll
     end
 end
